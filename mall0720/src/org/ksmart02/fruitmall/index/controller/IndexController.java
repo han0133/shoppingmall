@@ -7,12 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/")
+@WebServlet("/temp")
 public class IndexController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 //
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		System.out.println("IndexController 실행");
 		response.sendRedirect("/itemListController");
 	}
 

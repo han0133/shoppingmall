@@ -11,27 +11,36 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script>
 	$(document).ready(function(){
+		
+		if( $('#memberId').val == '' ){
+			alert('로그인이 필요한 기능입니다');
+		}
+		
 		var itemStock = $('#ordersCountView').attr('max');
-		//
-		//재고가 있다면 if문 실행
-		if(itemStock > 0){
-			$('#addCart').click(function(){
+		//0724수정 박종무 (장바구니 or 주문 클릭시 재고 없을 경우 경고창 뜨게)	
+		$('#addCart').click(function(){
+			if(itemStock > 0){
 				$('#addFrom').attr('action',"/PutCartController");
 				$('#addFrom').attr('method',"POST");
 				var ordersCountView = $('#ordersCountView').val();
 				$('#ordersCount').val(ordersCountView);
 				$('#addFrom').submit();
-			});
-			$('#addOrders').click(function(){
+			}else{
+				alert('재고가 부족합니다');
+			}
+		});
+		$('#addOrders').click(function(){
+			if(itemStock > 0){
 				$('#addFrom').attr('action',"/OrderItemController");
 				$('#addFrom').attr('method',"GET");
 				var ordersCountView = $('#ordersCountView').val();
 				$('#ordersCount').val(ordersCountView);
 				$('#addFrom').submit();
-			});
-		}else{
-			alert('재고가 부족합니다');
-		}
+			}else{
+				alert('재고가 부족합니다');
+			}		
+		});
+		
 		
 		//평균별점에 따른 별 넣어주기
 		if($("#avgStar").val()==1){
@@ -137,18 +146,25 @@
 <a href="/itemListController">리스트목록으로</a>
 <body>
 <jsp:include page="/module/nav.jsp" flush="false"/>
-	<div><label>no :</label>${itemDetail.itemNo} &nbsp; <a href="/ItemModfiyController?itemNo=${itemDetail.itemNo}">수정</a></div>	
-	<div><h2>${itemDetail.itemName}</h2></div>
+	
+	<c:if test="${memberLevel eq '관리자'}">
 		<div>
-<!-- 			<label>평균별점 : </label> -->
-			<input id="avgStar" type="hidden" name="avgStar" value="${avgStar}" readonly="readonly"/>
-			<input id="avgStarView" type="text" name="avgStarView" value="" readonly="readonly" />
+			<label>no :</label>${itemDetail.itemNo} &nbsp; <a href="/ItemModfiyController?itemNo=${itemDetail.itemNo}">상품수정</a>
+		</div>	
+	</c:if>
+	<div>
+		<h2>${itemDetail.itemName}</h2>
+	</div>
+	<div>
+		<!-- 평균별점 -->
+		<input id="avgStar" type="hidden" name="avgStar" value="${avgStar}" readonly="readonly"/>
+		<input id="avgStarView" type="text" name="avgStarView" value="" readonly="readonly" />
+	</div>
+	<div style="margin-left: 25%;">
+		<div style="width: 500px; height: 300px; overflow: hidden; ">
+			<img src="${itemDetail.itemImage}" id="img">
 		</div>
-		<div style="margin-left: 25%;">
-			<div style="width: 500px; height: 300px; overflow: hidden; ">
-				<img src="${itemDetail.itemImage}" id="img">
-			</div>
-		</div>
+	</div>
 <div>
 <br/>
 <br/>
@@ -177,6 +193,9 @@
 </div>	
 <div id="comment">
 	<br/>
+	<!-- 로그인 안됬는데 장바구니 담기/구입 누르면 PutCartController에서 로그인 경고메세지를 받아서 담는 부분  -->
+	<input type="text" id="memberId" value="${memberId}"/>
+	
 	<form id="addFrom" action="" method="">
 		<input type="hidden" name="itemPrice" value="${itemDetail.itemPrice}">
 		<input type="hidden" name="itemNo" value="${itemDetail.itemNo}">
@@ -197,7 +216,7 @@
 			<div style="padding-left: 1%;text-align: left;">
 				<label>제목 : </label>
 				<input type="text" id="commentTitle" name="commentTitle">
-			<br/>
+				<br/>
 				<label>내용 : </label>
 				<textarea style="resize:none" rows="3" cols="80" id="commentContent" name="commentContent"></textarea>
 				<select id="selectStar">
@@ -210,10 +229,8 @@
 				</select>
 				<input id="commentRate" type="hidden" name="commentRate" value="">
 				<input id="commentStar" type="hidden" name="commentStar" value="">
-	
 				<input id="commentAdd" type="button"class="btn btn-default"  value="등록"/>
 			</div>
-
 		</form>	
 	</c:if>
 <h3>댓글리스트</h3>
@@ -223,7 +240,6 @@
 	</c:if>
 
 	<!-- 댓글리스트입니다. -->
-
 		<table border=1 style="border-color: #ffb3b3;" >
 			<tr>
 				<td>commentNo</td>
@@ -238,33 +254,33 @@
 				<td>commentDelete</td>
 			</tr>
 			<c:forEach var="c" items="${map.listComment}">
-			<tr>
-				<td>${c.commentNo}</td>	
-				<td>${c.itemNo}</td>
-				<td>${c.memberId}</td>
-				<td>${c.commentTitle}</td>
-				<td>${c.commentContent}</td>
-				<td>${c.commentRate}</td>
-				<td>${c.commentDate}</td>
-				<td>${c.commentStar}</td>
-				
-				
-				<c:if test="${sessionId eq c.memberId}">
-					<td><a href="/CommentUpdateController?commentNo=${c.commentNo}&itemNo=${c.itemNo}">수정</a></td>
-				</c:if>
-				<c:if test="${sessionId ne c.memberId}">
-					<td></td>
-				</c:if>
-				
-				<c:if test="${sessionId eq c.memberId}">
-					<td><a href="/CommentDelController?commentNo=${c.commentNo}&itemNo=${c.itemNo}">삭제</a></td>
-				</c:if>	
-				<c:if test="${sessionId ne c.memberId}">
-					<td></td>
-				</c:if>
-			</tr>
+				<tr>
+					<td>${c.commentNo}</td>	
+					<td>${c.itemNo}</td>
+					<td>${c.memberId}</td>
+					<td>${c.commentTitle}</td>
+					<td>${c.commentContent}</td>
+					<td>${c.commentRate}</td>
+					<td>${c.commentDate}</td>
+					<td>${c.commentStar}</td>
+					
+					<c:if test="${sessionId eq c.memberId}">
+						<td><a href="/CommentUpdateController?commentNo=${c.commentNo}&itemNo=${c.itemNo}">수정</a></td>
+					</c:if>
+					<c:if test="${sessionId ne c.memberId}">
+						<td></td>
+					</c:if>
+					
+					<c:if test="${sessionId eq c.memberId}">
+						<td><a href="/CommentDelController?commentNo=${c.commentNo}&itemNo=${c.itemNo}">삭제</a></td>
+					</c:if>	
+					<c:if test="${sessionId ne c.memberId}">
+						<td></td>
+					</c:if>
+				</tr>
 			</c:forEach>
 		</table>
+		
 		<!-- 페이징구간 -->
 			<div>
 	 	<a href="/itemDetailController?itemNo=${itemDetail.itemNo}&nowPage=1">◀◀ </a> 

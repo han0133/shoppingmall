@@ -14,7 +14,7 @@
       background-color: #ffb3b3;
       padding: 25px;
     }
-	#loginForm{
+	#loginForm,#header{
 		padding-left:30%;
 		width: 60%;
 	}	
@@ -28,6 +28,13 @@
 </style>
 <script>
 	$(document).ready(function() {
+		
+		$('#welcomeMsg').hide();
+		
+		if( $('#joined').val() == 'joined' ){
+			$('#welcomeMsg').show();
+		}
+		
 		$('#loginBtn').click(function() {
 			console.log('로그인버튼 클릭');
 			//아이디, 비밀번호 입력여부 검사
@@ -50,6 +57,7 @@
 	                     console.log("성공");
 	                     if(str.result=="true"){
 	                        $('#loginForm').attr('action',"/LoginController");
+	                        $('#loginForm').attr('method',"post");
 	                        $('#loginForm').submit();
 	                     }else{ 
 	                        alert('아이디 또는 비번이 맞지 않습니다.');
@@ -68,24 +76,29 @@
 <jsp:include page="/module/nav.jsp" flush="false"/>
 <!-- 로그인 폼 -->
 <div class="container">
-  <form role="form" action="/JoinMemberController" method="post" id="loginForm">
-  <h2>로그인</h2>
-    <div class="form-group">
-      <label for="memberId">아이디 : </label>
-      <input type="text" class="form-control" id="memberId" name ="memberId" placeholder="Enter ID">
-    </div>
-    <div class="form-group">
-      <label for="memberPw">비밀번호:</label>
-      <input type="password" class="form-control" id="memberPw" name = "memberPw" placeholder="Enter password">
-    </div>
-  	<div id="find">
-		<a href="/FindController">아이디/비밀번호 찾기</a>
+	<div id="header">
+		<div id="welcomeMsg"><h1>가입을 환영합니다<h1></h1></div>
+		<h2>로그인</h2>
+		<input type="hidden" id="joined" value="${joined}"/>
 	</div>
-	<div id="right">
-	    <input type="button" class="btn btn-default" id="loginBtn" value="로그인"/>
-		<input type="submit" class="btn btn-default" id="Join" value="회원가입" />
-	</div>
-  </form>
+	
+	<form role="form" action="/JoinMemberController" method="get" id="loginForm">
+		<div class="form-group">
+			<label for="memberId">아이디 : </label>
+			<input type="text" class="form-control" id="memberId" name ="memberId" placeholder="Enter ID">
+		</div>
+		<div class="form-group">
+			<label for="memberPw">비밀번호:</label>
+			<input type="password" class="form-control" id="memberPw" name = "memberPw" placeholder="Enter password">
+		</div>
+		<div id="find">
+			<a href="/FindController">아이디/비밀번호 찾기</a>
+		</div>
+		<div id="right">
+			<input type="button" class="btn btn-default" id="loginBtn" value="로그인"/>
+			<input type="submit" class="btn btn-default" id="Join" value="회원가입" />
+		</div>
+	</form>
 <br/>
 <br/>
 <footer class="container-fluid text-center">

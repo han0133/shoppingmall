@@ -43,7 +43,9 @@ public class JoinMemberController extends HttpServlet {
 		memberService = new MemberService();
 		memberService.joinMember(member);
 		
-		response.sendRedirect("/LoginController");
+		request.setAttribute("joined", "joined");
+		RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/Views/member/login.jsp");
+		rd.forward(request, response);
 	}
 
 }

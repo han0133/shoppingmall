@@ -18,6 +18,7 @@ public class ItemDao {
 	
 	//0717 총 아이템숫자구하는 메서드(최초 0717박종무)
 		public int countList() {
+			System.out.println("itemDao의 countList실행");
 			int totalList = 0;
 			try {
 				System.out.println("itemDao.countList");
@@ -26,9 +27,7 @@ public class ItemDao {
 				pstmt = conn.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				if(rs.next()){
-					System.out.println(rs.getInt(1));
 					totalList = rs.getInt(1);
-				System.out.println("totalList : "+totalList);	
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -100,6 +99,7 @@ public class ItemDao {
 	
 //상품목록을 보여주는 쿼리(최초 이한녕)//카테고리 선택과 검색을 합침  +페이징추가(0717박종무)
 	public ArrayList<Item> selectItemAll(String categoryKeyWord,String searchKeyWord, PageHelper pageHelper) throws Exception{
+		System.out.println("ItemDao의 selectItemAll실행");
 		ArrayList<Item> itemList = new ArrayList<Item>();
 	
 		conn 		= ConnectionPool.getConnection();
@@ -123,9 +123,7 @@ public class ItemDao {
 			item.setItemOrigin	(rs.getString("item_origin"));
 			
 			itemList.add		(item);
-			System.out.println	("item : "+item);
 		}
-		System.out.println("itemList.size: "+itemList.size());
 		pstmt.close();
 		conn.close();
 		rs.close();

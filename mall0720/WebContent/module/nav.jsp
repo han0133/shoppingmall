@@ -5,14 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>navbar</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <style type="text/css">
 	.main{
 		margin-top: 3%;
@@ -45,24 +41,19 @@
 		border-color: transparent;
 		color: #fff !important;
 	}
-	
-	
 </style>
-<script>
-	
-	
-</script>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-	<!-- session의 loginMember있는 if문 -->
+	<!-- 로그인 되었을 때 실행되는 부분입니다 -->
 	<c:if test="${loginId ne null}">
-	<div>
+		<div>
 			<nav class="navbar navbar-default navbar-fixed-top">
 				<div class="container">
 					<div class="navbar-header">
 						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-							<span class="icon-bar"></span> <span class="icon-bar"></span> 
+							<span class="icon-bar"></span> 
+							<span class="icon-bar"></span> 
 							<span class="icon-bar"></span>
 						</button>
 						<a class="navbar-brand" href="/">Fruit_Mall</a>
@@ -75,7 +66,6 @@
 							<li><a href="/NoticeListController">공지사항</a></li>	
 							<li><a href="/SellerListController">판매자 리스트</a></li>
 							<li>
-							
 								<!-- 상품검색 -->
 								<form id="itemSearchForm" action="/itemListController" method="post">
 									<input name="searchKeyWord" id="itemSearch" type="text"> 
@@ -84,25 +74,20 @@
 							</li>
 						</ul>
 					</div>
-					
 				</div>
 			</nav>
 		</div>
 	</c:if>
 
-		
-
-
-		<!-- session의 loginMember없는 if문 -->
-
-			<c:if test="${loginId eq null}">
-			
-			<div>
+	<!-- 로그인이 안되었을 때 실행되는 부분입니다 -->
+	<c:if test="${loginId eq null}">
+		<div>
 			<nav class="navbar navbar-default navbar-fixed-top">
 				<div class="container">
 					<div class="navbar-header">
 						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-							<span class="icon-bar"></span> <span class="icon-bar"></span> 
+							<span class="icon-bar"></span> 
+							<span class="icon-bar"></span> 
 							<span class="icon-bar"></span>
 						</button>
 						<a class="navbar-brand" href="/">Fruit_Mall</a>
@@ -125,8 +110,6 @@
 			</nav>	
 		</div>	
 	</c:if>
-
-<a href="/"><img src="https://lh3.googleusercontent.com/-_3Ntzip0mOw/V4dr9WSgalI/AAAAAAAAABk/GtT3SB2tSB4drHpvgsgfWq2i3q08FZw8wCL0B/w1043-h294-no/main.png" class="main" style="width: 100%"/></a>
-
+	<a href="/"><img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQS6CrfwtpcKNuZF6P3F0FsfRniSChR-bj5pQ8v4VQrY_Q8_bhH" class="main" style="width: 100%"/></a>
 </body>
 </html>

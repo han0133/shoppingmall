@@ -37,10 +37,10 @@ public class ItemService {
 	//상품 목록을 보여주는 메서드(최초 기입 이한녕)+페이징 수정(0717 박종무)
 	public Map<String,Object> itemList(String categoryKeyWord, String searchKeyWord,PageHelper pageHelper){
 		System.out.println("ItemService의 itemList실행");
-		Map<String,Object> map = new HashMap<String,Object>();
+		Map<String,Object> map		= new HashMap<String,Object>();
 		itemDao 					= new ItemDao();
 		ArrayList<Item> itemList 	= null;
-		PageHelper rePageHelper = null;
+		PageHelper rePageHelper		= null;
 		pageHelper.setTotalList(itemDao.countList());
 		try {
 			rePageHelper = new PageHelper(pageHelper);

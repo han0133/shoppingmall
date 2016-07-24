@@ -1,7 +1,6 @@
 package org.ksmart02.fruitmall.item.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +24,6 @@ public class itemDetailController extends HttpServlet {
 	private ItemService itemService;
 	private CommentService commentService;
 	private Comment comment;
-	private Comment comment2;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//최초 기입 박종무 
@@ -58,25 +56,19 @@ public class itemDetailController extends HttpServlet {
 		commentService 			= new CommentService();
 		comment = new Comment();
 		comment.setItemNo(itemNo);
-	//	System.out.println("comment : " + comment);
 	
-		//보낼때 사용하는 맵 map1
+		//댓글 보낼때 사용하는 맵 map1
 		Map<String,Object> map1 = new HashMap<String,Object>();
 		map1.put("pageHelper", pageHelper);
 		map1.put("comment", comment);
 		
-		//받아올때 사용하는 맵 map2
+		//댓글 받아올때 사용하는 맵 map2
 		Map<String, Object> map2 = new HashMap<String, Object>();
 		map2 = commentService.commentListService(map1);
-		//ArrayList<Comment> listComment = commentService.commentListService(comment);
-		//System.out.println("listComment : " + listComment);
-		//request.setAttribute("listComment", listComment);
-		System.out.println("map2 에 잘담겼나? : "+ map2);
 		request.setAttribute("map", map2);
 	
 		HttpSession session	= request.getSession();
 		String sessionId	= (String) session.getAttribute("loginId");
-		System.out.println("sessionId : " + sessionId);
 		request.setAttribute("sessionId", sessionId);
 		
 		//한 itemNo에 memberId로 한번만 입력할 수 있도록 
@@ -87,10 +79,8 @@ public class itemDetailController extends HttpServlet {
 		comment = new Comment();
 		comment.setItemNo(itemNo);
 		comment.setMemberId(memberId);
-		System.out.println("itemDetailController comment :"+ comment);
 		
 		result = commentService.commentListServiceByItemNoAndMemberId(comment);
-		System.out.println("result : "+ result);
 		request.setAttribute("result", result);
 		
 		//해당아이템의 평균별점을 구하자
@@ -98,7 +88,6 @@ public class itemDetailController extends HttpServlet {
 		comment.setItemNo(itemNo);
 		int avgStar = 0;
 		avgStar = commentService.commentAvgStarService(comment);
-		System.out.println("avgStar : " + avgStar);
 		request.setAttribute("avgStar", avgStar);
 		
 		
