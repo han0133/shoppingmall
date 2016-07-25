@@ -31,11 +31,11 @@
 <jsp:include page="../module/nav.jsp" flush="false"/>
 	<div>
 		<ul class="nav nav-tabs nav-justified">
-		    <li class="active"><a href="/itemListController">전체상품</a></li>
-		    <li><a href="/itemListController?categoryKeyWord=Spring">봄, Spring</a></li>
-		    <li><a href="/itemListController?categoryKeyWord=Summer">여름, Summer</a></li>
-		    <li><a href="/itemListController?categoryKeyWord=fall">가을, Fall</a></li>
-		    <li><a href="/itemListController?categoryKeyWord=Winter">겨울, Winter</a></li>
+		    <li class="active"><a href="/indexController">전체상품</a></li>
+		    <li><a href="/indexController?categoryKeyWord=Spring">봄, Spring</a></li>
+		    <li><a href="/indexController?categoryKeyWord=Summer">여름, Summer</a></li>
+		    <li><a href="/indexController?categoryKeyWord=fall">가을, Fall</a></li>
+		    <li><a href="/indexController?categoryKeyWord=Winter">겨울, Winter</a></li>
 		</ul>
 	</div>
 	<br/>
@@ -58,7 +58,7 @@
 	</c:forEach>
   </div>
 </div><br>
-<!-- 0717페이징 관련 박종무 -->
+<%-- <!-- 0717페이징 관련 박종무 -->
 <div id="paging">	
 	<span class="paging">
 		<a href="/itemListController?nowPage=1"> ◀◀ </a>
@@ -85,15 +85,15 @@
 		
 		<a href="/itemListController?nowPage=${map.pageHelper.totalPage}"> ▶▶ </a>
 	</span>
-</div>	
+</div>	 --%>
 <footer class="container-fluid text-center">
 	<address>
 		<p>
-			<p><strong>(주)FruitMall</strong> ksmart <span><strong>개인정보보호담당자</strong> 서지연</span></p>
+			<p><strong>(주)FruitMall</strong> ksmart <span><strong>개인정보보호담당자</strong> /</span></p>
 			<p><strong>사업자등록번호</strong> 010-9201-4268 <span><strong>통신판매업신고</strong> 2015-기린대로-0589</span></p>
 		</p>
 		<p>
-			<p><strong>주소</strong> 전주시 덕진구 송천동 주공아파트 130동 703호</p>
+			<p><strong>주소</strong> /</p>
 			<p><span><strong>TEL/FAX</strong> 010-9201-4268</span></p>
 		</p>
 	</address>
@@ -102,5 +102,4 @@
 </footer>
 
 </body>
->>>>>>> branch 'master' of https://github.com/han0133/fruitMall.git
 </html>

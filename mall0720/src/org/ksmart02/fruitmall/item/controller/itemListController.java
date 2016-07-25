@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.ksmart02.fruitmall.item.service.ItemService;
 import org.ksmart02.fruitmall.util.PageHelper;
 
-@WebServlet("/")
+@WebServlet("/temp")
 public class itemListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ItemService itemService;
@@ -22,7 +22,7 @@ public class itemListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("itemListController의 doGet실행");
 		
-		PageHelper pageHelper = new PageHelper();
+		/*PageHelper pageHelper = new PageHelper();
 		if(request.getParameter("nowPage") != null){
 			pageHelper.setNowPage(Integer.parseInt(request.getParameter("nowPage")));
 		}
@@ -31,7 +31,8 @@ public class itemListController extends HttpServlet {
 		}
 		
 		pageHelper.setLimitLink(10);
-		pageHelper.setLimitList(8);
+		pageHelper.setLimitList(8);*/
+		
 		String categoryKeyWord 	= ""; 
 		String searchKeyWord 	= "";
 		itemService 			= new ItemService();
@@ -42,8 +43,9 @@ public class itemListController extends HttpServlet {
 		if(request.getParameter("searchKeyWord") != null){
 			searchKeyWord 		= request.getParameter("searchKeyWord");
 		}
-		System.out.println("itemListController test 1");
-		Map<String,Object> map = itemService.itemList(categoryKeyWord,searchKeyWord,pageHelper);
+
+		/*Map<String,Object> map = itemService.itemList(categoryKeyWord,searchKeyWord,pageHelper);*/
+		Map<String,Object> map = itemService.itemList(categoryKeyWord,searchKeyWord);
 		
 		System.out.println("itemListController test 2");
 		request.setAttribute("map", map);

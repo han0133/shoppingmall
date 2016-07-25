@@ -98,18 +98,21 @@ public class ItemDao {
 	
 	
 //상품목록을 보여주는 쿼리(최초 이한녕)//카테고리 선택과 검색을 합침  +페이징추가(0717박종무)
-	public ArrayList<Item> selectItemAll(String categoryKeyWord,String searchKeyWord, PageHelper pageHelper) throws Exception{
+/*	public ArrayList<Item> selectItemAll(String categoryKeyWord,String searchKeyWord, PageHelper pageHelper) throws Exception{*/
+	public ArrayList<Item> selectItemAll(String categoryKeyWord,String searchKeyWord) throws Exception{
 		System.out.println("ItemDao의 selectItemAll실행");
+		
 		ArrayList<Item> itemList = new ArrayList<Item>();
 	
 		conn 		= ConnectionPool.getConnection();
-		String 	sql = "SELECT item_no, item_name, item_image, item_price, item_origin,  item_stock FROM item WHERE item_category LIKE ? AND item_name LIKE  ? ORDER BY item_no DESC limit ?, ?"; 
+		/*String 	sql = "SELECT item_no, item_name, item_image, item_price, item_origin,  item_stock FROM item WHERE item_category LIKE ? AND item_name LIKE  ? ORDER BY item_no DESC limit ?, ?";*/ 
+		String 	sql = "SELECT item_no, item_name, item_image, item_price, item_origin,  item_stock FROM item WHERE item_category LIKE ? AND item_name LIKE  ? ORDER BY item_no DESC"; 
 		pstmt 		= conn.prepareStatement(sql);
 		
 		pstmt.setString(1, "%"+categoryKeyWord+"%");
 		pstmt.setString(2, "%"+searchKeyWord+"%");
-		pstmt.setInt(3, pageHelper.getListOne());
-		pstmt.setInt(4, pageHelper.getLimitList());
+		/*pstmt.setInt(3, pageHelper.getListOne());
+		pstmt.setInt(4, pageHelper.getLimitList());*/
 		
 		rs 			= pstmt.executeQuery();
 		
